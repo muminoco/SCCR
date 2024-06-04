@@ -40,6 +40,7 @@ export function fadeInAnimation(item) {
     ease: "power4.out",
   });
 }
+
 export function lettersFadeInAnimation(textItem) {
   gsap.set(textItem, { opacity: 1 });
 
@@ -56,9 +57,10 @@ export function lettersFadeInAnimation(textItem) {
     tl.from(targetWord, {
       filter: "blur(3px)",
       opacity: 0,
-      duration: 1,
-      stagger: { amount: 0.75 },
-      ease: "power4.out",
+      duration: 0.75,
+      yPercent: 30,
+      stagger: 0.06,
+      ease: "sine.out",
     });
   });
 }
@@ -104,10 +106,11 @@ export function delayFadeInAnimation(item, delayInSeconds) {
 
   tl.from(target, {
     delay: delayInSeconds,
-    filter: "blur(2px)",
+    // filter: "blur(2px)",
     opacity: 0,
-    duration: 1,
-    ease: "power1.out",
+    yPercent: 10,
+    duration: 0.75,
+    ease: "sine.out",
     // });
   });
 }
@@ -181,8 +184,8 @@ export function lettersBlurInAnimation(textItem) {
       autoAlpha: 0,
       scale: 0.9,
       transformOrigin: "center bottom",
-      duration: 1,
-      stagger: { amount: 0.5, from: "random" },
+      duration: 0.85,
+      stagger: { each: 0.015, from: "random" },
       ease: "sine.out",
     });
   });
