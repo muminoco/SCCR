@@ -1,10 +1,12 @@
 // Reusable Scrolltrigger
+const isMarkersOn = false;
+
 export function createScrollTrigger(triggerElement, timeline) {
   // Resets the animation once the bottom of element leaves the top of the screen
   ScrollTrigger.create({
     trigger: triggerElement,
     start: "top bottom",
-    markers: true,
+    markers: isMarkersOn,
     onLeaveBack: () => {
       timeline.progress(0);
       timeline.pause();
@@ -16,7 +18,7 @@ export function createScrollTrigger(triggerElement, timeline) {
     trigger: triggerElement,
     start: "top 90%",
     end: "bottom top",
-    markers: true,
+    markers: isMarkersOn,
     onEnter: () => {
       timeline.play();
     },
@@ -32,7 +34,7 @@ export function createOneWayScrollTrigger(triggerElement, timeline) {
     trigger: triggerElement,
     start: "top 90%",
     end: "bottom top",
-    markers: false,
+    markers: isMarkersOn,
     onEnter: () => {
       timeline.play();
     },

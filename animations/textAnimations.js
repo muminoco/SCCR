@@ -6,9 +6,8 @@ Takes the text target (such as a heading),
 and the types of split text (lines, words, chars).
 */
 let createSplitText = function (textItem, splitTypes) {
-  document.fonts.ready.then(() => {
-    let newSplitText = new SplitType(textItem, splitTypes);
-  });
+  let newSplitText = new SplitType(textItem, splitTypes);
+
   //   let newSplitText = new SplitType(textItem, splitTypes);
 };
 
@@ -26,23 +25,90 @@ Fade Animations
 
 */
 
+export function fadeInAnimation(item) {
+  gsap.set(item, { opacity: 1 });
+  let target = item;
+  let tl = gsap.timeline({ paused: true });
+
+  createScrollTrigger(target, tl);
+
+  tl.from(target, {
+    filter: "blur(3px)",
+    opacity: 0,
+    duration: 1,
+    stagger: { amount: 0.75 },
+    ease: "power4.out",
+  });
+}
 export function lettersFadeInAnimation(textItem) {
+  gsap.set(textItem, { opacity: 1 });
+
   // First split the appropriate text types
   createSplitText(textItem, { types: "words, chars" });
 
   textItem.each(function (index) {
     let target = $(this);
-    let targetChar = target.find(".char");
+    let targetWord = target.find(".word");
 
     let tl = gsap.timeline({ paused: true });
     createScrollTrigger(target, tl);
 
-    tl.from(targetChar, {
-      opacity: 0.1,
+    tl.from(targetWord, {
+      filter: "blur(3px)",
+      opacity: 0,
       duration: 1,
       stagger: { amount: 0.75 },
+      ease: "power4.out",
+    });
+  });
+}
+
+/* 
+
+Delay Animations
+
+*/
+export function delayTextFadeInAnimation(textItem, delayInSeconds) {
+  gsap.set(textItem, { opacity: 1 });
+
+  // First split the appropriate text types
+  createSplitText(textItem, { types: "words, chars" });
+
+  textItem.each(function (index) {
+    let target = $(this);
+    let targetWord = target.find(".word");
+
+    let tl = gsap.timeline({ paused: true });
+    createScrollTrigger(target, tl);
+
+    tl.from(targetWord, {
+      delay: delayInSeconds,
+      filter: "blur(2px)",
+      opacity: 0,
+      duration: 1,
+      stagger: { amount: 0.5 },
       ease: "power1.out",
     });
+  });
+}
+
+// Non-Text Normal Fade
+export function delayFadeInAnimation(item, delayInSeconds) {
+  gsap.set(item, { opacity: 1 });
+
+  // item.each(function (index) {
+  let target = item;
+
+  let tl = gsap.timeline({ paused: true });
+  createScrollTrigger(target, tl);
+
+  tl.from(target, {
+    delay: delayInSeconds,
+    filter: "blur(2px)",
+    opacity: 0,
+    duration: 1,
+    ease: "power1.out",
+    // });
   });
 }
 
@@ -58,8 +124,8 @@ export function linesFadeInAnimation(textItem) {
 
     tl.from(targetLine, {
       opacity: 0,
-      duration: 1,
-      stagger: 0.15,
+      duration: 1.5,
+      stagger: 0.2,
       ease: "power1.out",
     });
   });
@@ -99,6 +165,7 @@ Blur Animations
 */
 
 export function lettersBlurInAnimation(textItem) {
+  gsap.set(textItem, { opacity: 1 });
   createSplitText(textItem, { types: "words, chars" });
 
   textItem.each(function (index) {
@@ -109,19 +176,20 @@ export function lettersBlurInAnimation(textItem) {
     createScrollTrigger(target, tl);
 
     tl.from(targetChar, {
-      filter: "blur(8px)",
-      opacity: 0,
-      yPercent: -50,
+      filter: "blur(4px)",
+      color: "#d18d78",
+      autoAlpha: 0,
+      scale: 0.9,
+      transformOrigin: "center bottom",
       duration: 1,
-      stagger: { amount: 1 },
-      ease: "power1.out",
+      stagger: { amount: 0.5, from: "random" },
+      ease: "sine.out",
     });
   });
 }
 
 export function linesBlurInAnimation(textItem) {
   createSplitText(textItem, { types: "words, lines" });
-
   textItem.each(function (index) {
     let target = $(this);
     let targetLine = target.find(".line");
