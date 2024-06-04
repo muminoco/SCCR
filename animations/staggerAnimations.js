@@ -1,3 +1,5 @@
+const isMarkersOn = false;
+
 export function staggerFadeInAnimation(item) {
   const target = item;
   const batchInterval = 0;
@@ -30,7 +32,7 @@ export function staggerFadeInAnimation(item) {
     interval: batchInterval,
     start: "top bottom",
     end: "bottom top",
-    markers: true,
+    markers: isMarkersOn,
     onEnter: (batch) => gsap.fromTo(batch, tweenFrom, tweenTo),
     onLeave: (batch) => gsap.set(batch, tweenExit),
     onEnterBack: (batch) => gsap.fromTo(batch, tweenFrom, tweenTo),
@@ -70,7 +72,7 @@ export function staggerSlideUpAnimation(item) {
     interval: batchInterval,
     start: "top bottom",
     end: "bottom top",
-    markers: true,
+    markers: isMarkersOn,
     onEnter: (batch) => gsap.fromTo(batch, tweenFrom, tweenTo),
     onLeave: (batch) => gsap.set(batch, tweenExit),
     onEnterBack: (batch) => gsap.fromTo(batch, tweenFrom, tweenTo),
@@ -113,7 +115,7 @@ export function staggerBlurInAnimation(item) {
     interval: batchInterval,
     start: "top bottom",
     end: "bottom top",
-    markers: true,
+    markers: isMarkersOn,
     onEnter: (batch) => gsap.fromTo(batch, tweenFrom, tweenTo),
     onLeave: (batch) => gsap.set(batch, tweenExit),
     onEnterBack: (batch) => gsap.fromTo(batch, tweenFrom, tweenTo),
