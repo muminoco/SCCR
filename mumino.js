@@ -27,7 +27,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const delayFadeIn = $("[ani='delayFadeIn']");
   const delayInSeconds = 1;
 
+  const navbar = document.querySelector(".navbar_component");
   const navbarLinks = $(".navbar_link");
+
   const linesBlurIn = $("[ani='linesBlurIn']");
   const linesMaskUp = $("[ani='linesMaskUp']");
 
