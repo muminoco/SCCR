@@ -1,4 +1,4 @@
-import { navbarLinkStagger } from "./animations/navbar.js";
+import { navbarLinkStagger, navbarHide } from "./animations/navbar.js";
 import {
   staggerFadeInAnimation,
   staggerSlideUpAnimation,
@@ -51,7 +51,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
   };
 
   let navbarAnimations = function () {
-    if (navbarLinks.length > 0) navbarLinkStagger(navbarLinks);
+    // if (navbarLinks.length > 0) navbarLinkStagger(navbarLinks);
+    if (navbar.length > 0) navbarHide(navbar);
   };
 
   // Declarations
