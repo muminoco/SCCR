@@ -33,9 +33,8 @@ export function fadeInAnimation(item) {
   createScrollTrigger(target, tl);
 
   tl.from(target, {
-    filter: "blur(3px)",
     opacity: 0,
-    duration: 1,
+    duration: 0.75,
     stagger: { amount: 0.75 },
     ease: "power4.out",
   });
@@ -96,22 +95,19 @@ export function delayTextFadeInAnimation(textItem, delayInSeconds) {
 
 // Non-Text Normal Fade
 export function delayFadeInAnimation(item, delayInSeconds) {
-  gsap.set(item, { opacity: 1 });
+  item.each(function (index) {
+    let target = $(this);
+    let tl = gsap.timeline({ paused: true });
+    createScrollTrigger(target, tl);
 
-  // item.each(function (index) {
-  let target = item;
-
-  let tl = gsap.timeline({ paused: true });
-  createScrollTrigger(target, tl);
-
-  tl.from(target, {
-    delay: delayInSeconds,
-    // filter: "blur(2px)",
-    opacity: 0,
-    yPercent: 10,
-    duration: 0.75,
-    ease: "sine.out",
-    // });
+    tl.from(target, {
+      delay: delayInSeconds,
+      // filter: "blur(2px)",
+      opacity: 0,
+      yPercent: 10,
+      duration: 0.75,
+      ease: "sine.out",
+    });
   });
 }
 

@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   const delayTextFadeIn = $("[ani='delayTextFadeIn']");
   const delayFadeIn = $("[ani='delayFadeIn']");
-  const delayInSeconds = 1;
+  const delayInSeconds = 0.5;
 
   const navbar = document.querySelector(".navbar_component");
   const navbarLinks = $(".navbar_link");
