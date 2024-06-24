@@ -33,6 +33,7 @@ export function fadeInAnimation(item) {
   createScrollTrigger(target, tl);
 
   tl.from(target, {
+    delay: 0.25,
     opacity: 0,
     duration: 0.75,
     stagger: { amount: 0.75 },
@@ -151,7 +152,7 @@ export function linesMaskUpAnimation(textItem) {
       opacity: 0,
       yPercent: 150,
       duration: 1,
-      stagger: 0.001,
+      stagger: 0.005,
       ease: "power1.out",
     });
   });
@@ -175,7 +176,7 @@ export function lettersBlurInAnimation(textItem) {
     createScrollTrigger(target, tl);
 
     tl.from(targetChar, {
-      filter: "blur(4px)",
+      // filter: "blur(4px)",
       color: "#d18d78",
       autoAlpha: 0,
       scale: 0.9,
@@ -187,6 +188,50 @@ export function lettersBlurInAnimation(textItem) {
   });
 }
 
+export function quotesAnimation(textItem) {
+  gsap.set(textItem, { opacity: 1 });
+  createSplitText(textItem, { types: "words, chars" });
+
+  textItem.each(function (index) {
+    let target = $(this);
+    let targetChar = target.find(".char");
+
+    let tl = gsap.timeline({ paused: true });
+    createScrollTrigger(target, tl);
+
+    tl.from(targetChar, {
+      autoAlpha: 0,
+      scale: 0.9,
+      transformOrigin: "center bottom",
+      duration: 1,
+      stagger: { amount: 0.75, from: "center" },
+      ease: "sine.out",
+    });
+  });
+}
+
+export function heroHeadingAnimation(textItem) {
+  gsap.set(textItem, { opacity: 1 });
+  createSplitText(textItem, { types: "words, chars" });
+
+  textItem.each(function (index) {
+    let target = $(this);
+    let targetChar = target.find(".char");
+
+    let tl = gsap.timeline({ paused: true });
+    createScrollTrigger(target, tl);
+
+    tl.from(targetChar, {
+      // filter: "blur(4px)",
+      autoAlpha: 0,
+      scale: 0.8,
+      transformOrigin: "bottom center",
+      duration: 1,
+      stagger: { amount: 1, from: "left" },
+      ease: "sine.out",
+    });
+  });
+}
 export function linesBlurInAnimation(textItem) {
   createSplitText(textItem, { types: "words, lines" });
   textItem.each(function (index) {

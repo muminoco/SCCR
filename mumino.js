@@ -1,62 +1,88 @@
-import { navbarHide } from "./animations/navbar.js";
-import {
-  staggerFadeInAnimation,
-  staggerSlideUpAnimation,
-  staggerBlurInAnimation,
-} from "./animations/staggerAnimations.js";
-import {
-  delayTextFadeInAnimation,
-  delayFadeInAnimation,
-  lettersBlurInAnimation,
-  lettersFadeInAnimation,
-  fadeInAnimation,
-} from "./animations/textAnimations.js";
+import { smoothScroll } from "./animations/smoothScroll.js";
+import { createHorizontalScroller, pinTwoPanel } from "./animations/customAnimations.js";
+import { setupThemeToggler } from "./themes/themeSwitcher.js";
+import { fadeInAnimation, heroHeadingAnimation, linesMaskUpAnimation, quotesAnimation } from "./animations/textAnimations.js";
+import { imagesScrollInAnimation, timelineScrollInAnimation } from "./animations/staggerAnimations.js";
 
 document.addEventListener("DOMContentLoaded", (event) => {
-  // Variables & Targets
-  const staggerFadeIn = $(".stagger_item, .partner_wrapper");
-  const staggerSlideUp = $("[ani='staggerSlideUp']");
-  const staggerBlurIn = $(".splide__slide.is-home-hero, .testimonials_card");
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
-  const letterFade = $("[ani='lettersFadeIn']");
-  const letterBlur = $("[ani='lettersBlurIn']");
+  /**
+   * Theme Switching Functionality
+   */
 
-  const fadeIn = $("[ani='fadeIn']");
+  function themeSwitcher() {
+    // Retrives the current theme based on what's stored in localStorage.
+    // If nothing's there, it defaults to "light"
+    const currentTheme = localStorage.getItem("theme") || "light";
+    document.getElementById(`mm-theme-switcher-${currentTheme}`).style.display = "flex";
+    document.body.setAttribute("mm-theme", currentTheme);
 
-  const delayTextFadeIn = $("[ani='delayTextFadeIn']");
-  const delayFadeIn = $("[ani='delayFadeIn']");
-  const delayInSeconds = 0.5;
+    // Setup the toggle button event listener
+    setupThemeToggler();
+  }
 
-  const navbar = document.querySelector(".navbar_component");
-  const navbarLinks = $(".navbar_link");
+  function areElementsPresent(selectors) {
+    // Check if all selectors are present
+    return selectors.every((selector) => {
+      if ($(selector).length > 0) {
+        console.log(`Element found: ${selector}`);
+        return true;
+      } else {
+        console.log(`Element not found: ${selector}`);
+        return false;
+      }
+    });
+  }
 
-  const linesBlurIn = $("[ani='linesBlurIn']");
-  const linesMaskUp = $("[ani='linesMaskUp']");
+  function textAnimations() {
+    const exploreHeroHeading = $(".theme_hero-heading");
+    const arabicEyebrowWrapper = $(".arabic-eyebrow_wrapper");
 
-  // Animations
-  let staggerAnimations = function () {
-    if (staggerFadeIn.length > 0) staggerFadeInAnimation(staggerFadeIn);
-    if (staggerSlideUp.length > 0) staggerSlideUpAnimation(staggerSlideUp);
-    if (staggerBlurIn.length > 0) staggerBlurInAnimation(staggerBlurIn);
-  };
+    // Main Text Targets
+    const heroHeading = $("[ani='hero-heading']");
+    const sectionHeading = $("[ani='section-heading']");
+    const primaryParagraph = $("[ani='primary-paragraph']");
+    const secondaryParagraph = $("[ani='paragraph']");
 
-  let textAnimations = function () {
-    if (fadeIn.length > 0) fadeInAnimation(fadeIn);
-    if (letterFade.length > 0) lettersFadeInAnimation(letterFade);
-    if (letterBlur.length > 0) lettersBlurInAnimation(letterBlur);
-    if (delayTextFadeIn.length > 0)
-      delayTextFadeInAnimation(delayTextFadeIn, delayInSeconds);
-    if (delayFadeIn.length > 0)
-      delayFadeInAnimation(delayFadeIn, delayInSeconds);
-  };
+    heroHeadingAnimation($(".theme_hero-heading"), $(".arabic-eyebrow_wrapper"));
+    linesMaskUpAnimation($("[ani='secondaryText']"));
+    linesMaskUpAnimation($("[ani='heading']"));
 
-  let navbarAnimations = function () {
-    // if (navbarLinks.length > 0) navbarLinkStagger(navbarLinks);
-    navbarHide(navbar);
-  };
+    fadeInAnimation($("[ani='paragraph']"));
+    quotesAnimation($("[ani='quote']"));
+  }
 
-  // Declarations
-  staggerAnimations();
+  function staggerAnimations() {
+    imagesScrollInAnimation($("[ani='imageWrapper']"));
+    timelineScrollInAnimation($(".timeline_item"));
+  }
+
+  function runCustomAnimations() {
+    // Pin Two Panel
+    let twoPanelComponent = ".two-panel_component";
+    let twoPanelPinned = ".two-panel_pinned";
+    let twoPanelContent = ".two-panel_content";
+    let twoPanelEnd = "bottom center";
+
+    if (areElementsPresent([twoPanelComponent, twoPanelPinned, twoPanelContent])) {
+      pinTwoPanel(twoPanelComponent, twoPanelPinned, twoPanelContent, twoPanelEnd);
+    }
+
+    // Horizontal Scroller
+    let horizontalScrollerSection = ".section_horizontal-scroller";
+    let horizontalScrollerViewport = ".horizontal-scroller_viewport";
+    let horizontalScrollerTrack = ".horizontal-scroller_track";
+
+    if (areElementsPresent([horizontalScrollerSection, horizontalScrollerViewport, horizontalScrollerTrack])) {
+      createHorizontalScroller(horizontalScrollerSection, horizontalScrollerViewport, horizontalScrollerTrack);
+    }
+  }
+
+  // Runs the smooth scrolling functionality
+  smoothScroll();
+  themeSwitcher();
+  runCustomAnimations();
   textAnimations();
-  navbarAnimations();
+  staggerAnimations();
 });
