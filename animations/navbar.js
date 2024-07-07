@@ -76,8 +76,7 @@ export function navbarHide(navbar) {
   }
 
   function checkScroll() {
-    let currentScroll =
-      window.pageYOffset || document.documentElement.scrollTop;
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
     if (currentScroll > lastScrollTop && currentScroll > offsetFromTop) {
       navbar.style.transform = "translateY(-100%)";
