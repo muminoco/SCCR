@@ -1,3 +1,4 @@
 {
-  "liveServer.settings.port": 4395
+  "liveServer.settings.port": 4395,
+  "prettier.printWidth": 500
 }

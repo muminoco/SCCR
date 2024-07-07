@@ -1,4 +1,36 @@
+import { createScrollTrigger } from "./scrolltriggers/scrolltrigger.js";
+
 const isMarkersOn = false;
+
+export function itemFadeInAnimation(item) {
+  item.each(function (index) {
+    let target = $(this);
+    let tl = gsap.timeline({ paused: true });
+    createScrollTrigger(target, tl);
+
+    tl.from(target, {
+      autoAlpha: 0,
+      yPercent: 15,
+      duration: 0.75,
+      ease: "sine.out",
+    });
+  });
+}
+
+export function paragraphAnimation(item) {
+  item.each(function (index) {
+    let target = $(this);
+    let tl = gsap.timeline({ paused: true });
+    createScrollTrigger(target, tl);
+
+    tl.from(target, {
+      autoAlpha: 0,
+      // yPercent: 15,
+      duration: 0.75,
+      ease: "sine.out",
+    });
+  });
+}
 
 export function staggerFadeInAnimation(item) {
   const target = item;
@@ -14,7 +46,7 @@ export function staggerFadeInAnimation(item) {
 
   const tweenTo = {
     opacity: 1,
-    stagger: { amount: 0.75, from: "random" },
+    stagger: { amount: 0.5, from: "left" },
     scale: 1,
     duration: 0.75,
     overwrite: true,
@@ -97,11 +129,11 @@ export function staggerBlurInAnimation(item) {
   const tweenTo = {
     opacity: 1,
     filter: "blur(0px)",
-    stagger: { amount: 0.75, from: "random" },
+    stagger: { amount: 0.75, from: "center" },
     scale: 1,
-    duration: 0.75,
+    duration: 0.5,
     overwrite: true,
-    ease: "sine.inOut",
+    ease: "sine.out",
   };
 
   // Parameters for animation when it leaves the screen

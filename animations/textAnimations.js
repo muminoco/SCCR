@@ -40,7 +40,7 @@ export function fadeInAnimation(item) {
   });
 }
 
-export function lettersFadeInAnimation(textItem) {
+export function specialParagraphAnimation(textItem) {
   gsap.set(textItem, { opacity: 1 });
 
   // First split the appropriate text types
@@ -64,6 +64,28 @@ export function lettersFadeInAnimation(textItem) {
   });
 }
 
+export function sectionHeadingAnimation(textItem) {
+  gsap.set(textItem, { opacity: 1 });
+
+  // First split the appropriate text types
+  createSplitText(textItem, { types: "words, chars" });
+
+  textItem.each(function (index) {
+    let target = $(this);
+    let targetWord = target.find(".word");
+
+    let tl = gsap.timeline({ paused: true });
+    createScrollTrigger(target, tl);
+
+    tl.from(targetWord, {
+      opacity: 0,
+      duration: 0.75,
+      yPercent: 30,
+      stagger: 0.06,
+      ease: "sine.out",
+    });
+  });
+}
 /* 
 
 Delay Animations
@@ -163,7 +185,7 @@ Blur Animations
 
 */
 
-export function lettersBlurInAnimation(textItem) {
+export function heroHeadingAnimation(textItem) {
   gsap.set(textItem, { opacity: 1 });
   createSplitText(textItem, { types: "words, chars" });
 
@@ -176,12 +198,12 @@ export function lettersBlurInAnimation(textItem) {
 
     tl.from(targetChar, {
       filter: "blur(4px)",
-      color: "#d18d78",
+      color: "#0f54c2",
       autoAlpha: 0,
       scale: 0.9,
       transformOrigin: "center bottom",
-      duration: 0.85,
-      stagger: { each: 0.015, from: "random" },
+      duration: 0.5,
+      stagger: { each: 0.015, from: "left" },
       ease: "sine.out",
     });
   });

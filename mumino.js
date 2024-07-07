@@ -1,53 +1,47 @@
 import { navbarHide } from "./animations/navbar.js";
-import {
-  staggerFadeInAnimation,
-  staggerSlideUpAnimation,
-  staggerBlurInAnimation,
-} from "./animations/staggerAnimations.js";
-import {
-  delayTextFadeInAnimation,
-  delayFadeInAnimation,
-  lettersBlurInAnimation,
-  lettersFadeInAnimation,
-  fadeInAnimation,
-} from "./animations/textAnimations.js";
+import { staggerFadeInAnimation, staggerSlideUpAnimation, staggerBlurInAnimation } from "./animations/itemAnimations.js";
+import { delayTextFadeInAnimation, delayFadeInAnimation, fadeInAnimation, heroHeadingAnimation, specialParagraphAnimation, sectionHeadingAnimation } from "./animations/textAnimations.js";
+import { createHorizontalScroller } from "./animations/customanimations.js";
+import { itemFadeInAnimation } from "./animations/itemAnimations.js";
+import { paragraphAnimation } from "./animations/itemAnimations.js";
 
 document.addEventListener("DOMContentLoaded", (event) => {
-  // Variables & Targets
-  const staggerFadeIn = $(".stagger_item, .partner_wrapper");
+  // Targets
+  // Item Animations
+
+  const staggerFadeIn = ".stagger_item, .partner_wrapper";
   const staggerSlideUp = $("[ani='staggerSlideUp']");
   const staggerBlurIn = $(".splide__slide.is-home-hero, .testimonials_card");
+  const fadeIn = $("[ani='fadeIn'], .card_item");
 
-  const letterFade = $("[ani='lettersFadeIn']");
-  const letterBlur = $("[ani='lettersBlurIn']");
+  // Text Animations
+  const heroHeading = $("[ani='hero-heading'], .report_stats-big-number");
+  const sectionHeading = $("[ani='section-heading']");
+  const specialParagraph = $("[ani='specialParagraph']");
+  const paragraph = $("[ani='paragraph']");
+  const eyebrowText = $(".eyebrow_text");
 
-  const fadeIn = $("[ani='fadeIn']");
+  // const delayTextFadeIn = $("[ani='delayTextFadeIn']");
+  // const delayFadeIn = $("[ani='delayFadeIn']");
+  // const delayInSeconds = 0.5;
 
-  const delayTextFadeIn = $("[ani='delayTextFadeIn']");
-  const delayFadeIn = $("[ani='delayFadeIn']");
-  const delayInSeconds = 0.5;
-
+  // Navbar
   const navbar = document.querySelector(".navbar_component");
-  const navbarLinks = $(".navbar_link");
-
-  const linesBlurIn = $("[ani='linesBlurIn']");
-  const linesMaskUp = $("[ani='linesMaskUp']");
 
   // Animations
-  let staggerAnimations = function () {
+  let itemAnimations = function () {
     if (staggerFadeIn.length > 0) staggerFadeInAnimation(staggerFadeIn);
     if (staggerSlideUp.length > 0) staggerSlideUpAnimation(staggerSlideUp);
     if (staggerBlurIn.length > 0) staggerBlurInAnimation(staggerBlurIn);
+    if (fadeIn.length > 0) itemFadeInAnimation(fadeIn);
   };
 
   let textAnimations = function () {
-    if (fadeIn.length > 0) fadeInAnimation(fadeIn);
-    if (letterFade.length > 0) lettersFadeInAnimation(letterFade);
-    if (letterBlur.length > 0) lettersBlurInAnimation(letterBlur);
-    if (delayTextFadeIn.length > 0)
-      delayTextFadeInAnimation(delayTextFadeIn, delayInSeconds);
-    if (delayFadeIn.length > 0)
-      delayFadeInAnimation(delayFadeIn, delayInSeconds);
+    // if (fadeIn.length > 0) fadeInAnimation(fadeIn);
+    if (specialParagraph.length > 0) specialParagraphAnimation(specialParagraph);
+    if (sectionHeading.length > 0) sectionHeadingAnimation(sectionHeading);
+    if (heroHeading.length > 0) heroHeadingAnimation(heroHeading);
+    if (paragraph.length > 0) paragraphAnimation(paragraph);
   };
 
   let navbarAnimations = function () {
@@ -55,8 +49,42 @@ document.addEventListener("DOMContentLoaded", (event) => {
     navbarHide(navbar);
   };
 
+  function areElementsPresent(selectors) {
+    // Check if all selectors are present
+    return selectors.every((selector) => {
+      if ($(selector).length > 0) {
+        console.log(`Element found: ${selector}`);
+        return true;
+      } else {
+        console.log(`Element not found: ${selector}`);
+        return false;
+      }
+    });
+  }
+
+  function runCustomAnimations() {
+    // Pin Two Panel
+    let twoPanelComponent = ".two-panel_component";
+    let twoPanelPinned = ".two-panel_pinned";
+    let twoPanelContent = ".two-panel_content";
+    let twoPanelEnd = "bottom center";
+
+    if (areElementsPresent([twoPanelComponent, twoPanelPinned, twoPanelContent])) {
+      pinTwoPanel(twoPanelComponent, twoPanelPinned, twoPanelContent, twoPanelEnd);
+    }
+    // Horizontal Scroller
+    let horizontalTrigger = ".section_horizontal-scroller";
+    let horizontalPin = ".horizontal-scroller_viewport";
+    let horizontalContent = ".horizontal-scroller_track";
+
+    if (areElementsPresent([horizontalTrigger, horizontalContent])) {
+      createHorizontalScroller(horizontalTrigger, horizontalTrigger, horizontalContent);
+    }
+  }
+
   // Declarations
-  staggerAnimations();
+  itemAnimations();
   textAnimations();
   navbarAnimations();
+  runCustomAnimations();
 });
